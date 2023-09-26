@@ -19,20 +19,23 @@ export(x=identification, file = "output/identification.rds")
 
 # Punto 2
 
-# Supongamos que tu data frame se llama "identification"
+identification <- identification %>%
+  mutate(business_type = case_when(
+    GRUPOS4 == "01" ~ "Agricultura",
+    GRUPOS4 == "02" ~ "Industria manufacturera",
+    GRUPOS4 == "03" ~ "Comercio",
+    GRUPOS4 == "04" ~ "Servicios",
+    TRUE ~ NA_character_  ))
 
-# Crear la variable "business_type" utilizando ifelse
-identification$business_type <- ifelse(identification$GRUPOS4 == 1, "Agricultura",
-                                       ifelse(identification$GRUPOS4 == 2, "Industria manufacturera",
-                                              ifelse(identification$GRUPOS4 == 3, "Comercio",
-                                                     ifelse(identification$GRUPOS4 == 4, "Servicios", NA))))
+
+location <- location %>% mutate(location, local = ifelse(test = P3053>=6 & P3053<8, yes =1, no=0))
+
+## Punto 3
 
 
-location <- mutate(location, local = 0)
-location <- mutate(location, local = ifelse(test = P3053>=6 & P3053<8, yes =1, no=0))
+identification_sub <- identification %>%
+  filter(business_type == "Industria manufacturera")
 
-identification <- mutate(identification, business_type = case_when(GRUPOS4 == 1 ~ "Agricultura",
-                                                                   GRUPOS4 == 2 ~ "Industria",
-                                                                   GRUPOS4 == 3 ~ "Comercio",
-                                                                   GRUPOS4 == 4 ~ "Servicios"))
 
+location_sub <- location %>% select(DIRECTORIO, SECUENCIA_P, SECUENCIA_ENCUESTA,
+                                    P3054, P469, COD_DEPTO, F_EXP)
