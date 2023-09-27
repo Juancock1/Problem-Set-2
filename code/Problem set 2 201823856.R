@@ -36,6 +36,14 @@ location <- location %>% mutate(location, local = ifelse(test = P3053>=6 & P3053
 identification_sub <- identification %>%
   filter(business_type == "Industria manufacturera")
 
-
 location_sub <- location %>% select(DIRECTORIO, SECUENCIA_P, SECUENCIA_ENCUESTA,
                                     P3054, P469, COD_DEPTO, F_EXP)
+
+identification_sub2 <- identification_sub %>% select(DIRECTORIO, SECUENCIA_P, SECUENCIA_ENCUESTA,
+                                                     P35,P241,P3032_1,P3032_2,P3032_3,P3033,P3034)
+
+identification_sub <- identification_sub2
+
+rm(identification_sub2)
+
+## Falta mergear con el metodo de data.table
