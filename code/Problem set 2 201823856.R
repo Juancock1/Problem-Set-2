@@ -46,4 +46,17 @@ identification_sub <- identification_sub2
 
 rm(identification_sub2)
 
-## Falta mergear con el metodo de data.table
+## Punto 4
+
+
+identloc1 <- left_join(identification_sub, location_sub,
+                      by = c("DIRECTORIO", "SECUENCIA_P", "SECUENCIA_ENCUESTA"))
+
+identloc2 <- inner_join(identification_sub, location_sub,
+                         by = c("DIRECTORIO", "SECUENCIA_P", "SECUENCIA_ENCUESTA"))
+
+identloc3 <- merge(identification_sub, location_sub,
+                   by = c("DIRECTORIO", "SECUENCIA_P", "SECUENCIA_ENCUESTA"), all.x = TRUE)
+
+identloc4 <- merge(identification_sub, location_sub,
+                   by = c("DIRECTORIO", "SECUENCIA_P", "SECUENCIA_ENCUESTA"))
